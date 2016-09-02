@@ -5,9 +5,11 @@
 #include "Hourly.h"
 
 #include <memory>
+#include <vector>
 
 using std::make_shared;
 using std::shared_ptr;
+using std::vector;
 
 TEST(CommissionWorker, correctEarningsReturned)
 {
@@ -40,3 +42,12 @@ TEST(CommissionWorker, ableToSetNewItemNumber)
 	EXPECT_EQ(2519, commissionWorker_ptr->earnings());
 }
 
+TEST(TotalEmployeeWages, canCorrectlyCalculateAllEmployeeWages)
+{
+	shared_ptr<CommissionWorker> commissionWorker_ptr = make_shared<CommissionWorker>("Jeff", "Jefferson", 1000, 75.95, 13);
+	shared_ptr<FixedRateWorker> fixed_rate_ptr = make_shared<FixedRateWorker>("Ted", "Ramgasamy", 905.00);
+	shared_ptr<HourlyWorker> hourly_ptr = make_shared<HourlyWorker>("Louisa", "Mahlungu", 12.00, 52);
+	vector<shared_ptr<Employee>> employees = {commissionWorker_ptr, fixed_rate_ptr, hourly_ptr};
+	
+	EXPECT_EQ(3588.35, total_employee_wages(employees));
+}

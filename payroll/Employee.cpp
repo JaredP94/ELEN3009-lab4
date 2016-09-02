@@ -31,4 +31,14 @@ void Employee::print() const
 	cout << _first_name << ' ' << _surname; 
 }
 
+double total_employee_wages(const std::vector<std::shared_ptr<Employee>>& employees)
+{
+	auto _total_wages = 0.0;
+	for(const auto& employee : employees)
+	{
+		_total_wages += employee->earnings();
+	}
+	return _total_wages;
+}
+
 
