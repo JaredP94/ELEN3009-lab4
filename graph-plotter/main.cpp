@@ -6,6 +6,9 @@
 #include "Points.h"
 #include "DotLineStyle.h"
 #include "DashLineStyle.h"
+#include "Function.h"
+#include "Exponential.h"
+#include "Polynomial.h"
 #include <memory>
 
 using std::shared_ptr;
@@ -27,6 +30,9 @@ int main()
 	float phase = 0;
 	Sinusoid sine_function{amplitude, frequency, phase};
 	Sinusoid cosine_function{amplitude, frequency, phase + PI/2};
+	vector<float> coeffs = {1.0, 2.0, 1.0};
+	Polynomial poly_function{coeffs};
+	Exponential exp_function{1.0, 1.5};
 
 	// generate range and plot graphs
 	Range range{0, 6*PI};
@@ -42,6 +48,10 @@ int main()
 	DashLineStyle dash_blue{Colour::Blue, display};
 	graph.plot(generateDataPoints(cosine_function, range), dash_blue);
 
+	Range range_new{-3, 1.5};
+	graph.plot(generateDataPoints(poly_function, range_new), dot_red);
+	graph.plot(generateDataPoints(exp_function, range_new), dot_red);
+	
 	return 0;
 }
 
